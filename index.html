@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>きふわらべ</title>
+	<script>
+		var scene = "title";
+		var intervalFrame = 0;
+		setInterval(
+			() => {
+				switch (scene) {
+					case "title":
+						let left = document.getElementById("title").style.left;
+						// 末尾の px を外す。
+						left = left.substring(0, left.length - 2);
+						if (0 < left) {
+							// alert("left = " + left);
+							left -= 20;
+							document.getElementById("title").style.left = left + "px";
+						} else {
+							scene = "title-window-0";
+							intervalFrame = 30;
+						}
+						break;
+
+					case "title-window-0":
+						if (0 < intervalFrame) {
+							intervalFrame -= 1;
+						} else {
+							scene = "title-window-1";
+						}
+						break;
+
+					case "title-window-1":
+						document.getElementById("title-window").style.visibility = "visible";
+						scene = "finished";
+						break;
+				}
+			},
+			16
+		);
+	</script>
+</head>
+<body style="background-color:white;">
+
+	<div style="position:absolute; top:0px; left:0px; width:960px; height:540px; background-color:#eeeeff;">
+		<img id="title" src="./img/title.png" style="position:absolute; top:0px; left:960px;" />
+		<img id="title-window" src="./img/window1.png" style="position:absolute; top:0px; left:0px; visibility:hidden;" />
+	</div>
+
+	<!-- 裏を隠す板。 -->
+	<div style="position:absolute; top:0px; left:960px; width:960px; height:540px; background-color:white;">
+	</div>
+	
+</body>
+</html>
